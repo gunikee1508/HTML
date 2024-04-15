@@ -1,0 +1,162 @@
+HTML
+
+Anatomia da TAG -
+É uma linguagem de tags ( <> ). 
+
+A tag pode ter corpo ou não, com corpo seria <tag> </tag>, ou seja, onde tiver fechamento. 
+
+Comentário em html:
+<!-- Comentário AQUI -->
+
+Nem todas tags no html terão fechamento, como <meta>, <br> <input>
+
+<input type="text" cod3r-cpf> ----> uma forma de personalizar atributos para facilitar a manipulação e a interação com elementos da página. colocamos nesse caso apenas a chave e não o valor, e ai podemos criar um codigo JS para ler as tags e ler esta tag para poder criar mascara de cpf, por exemplo. 
+
+//////////////////
+
+Anatomia de uma página HTML -
+Antigamente, usava-se uma div e colocava-se como valores de nomes ids para dizer para que elas serviam, navegaçao (nav), header(cabeçalho), footer(rodapé), etc, hoje em dia tem-se tags especificas para tais coisas.
+<article>
+<aside>
+<details>
+etc...
+https://www.w3schools.com/html/html5_semantic_elements.asp
+
+No <Head> coloca-se coisas normalmente importadas, importar arquivo, etc, ai usa-se a tag "link", ou se quiser importar javascript usa-se <script src>...
+
+No <body> 
+colocamos as coisas padrão
+<header></header>
+<nav></nav>
+<section id="conteudo"></section>
+<footer></footer>
+
+Meta charset é o tipo de codificação que vc quer usar no codigo
+<meta charset="UTF-8">
+
+A tag <aside> vc colocaria alguma barra lateral ou algumas propagandas, algo relacionado à lateral da página.
+
+/////////////////
+
+Um pouco de CSS -
+Dentro do body coloquemos uma tag chamada "<span>" qeu tbm é uma tag visual.
+<span id="textoPrincipal">Texto 1</span>
+<span class="fundoVermelho negrito">Texto 2</span> <!-- aqui tenho 2 classes css, fundoVermelho e negrito -->
+<span class="fundoVermelho">Texto 3</span>
+
+Com span style="", dentro vc coloca o codigo CSS, o chave valor de CSS. praticamente todas as tags do html terá "id", q será o identificador da tag. O id deve ser unico na pagina inteira. No span debaixo, coloquei "class", que é outro identificador muito associado com uso de estilo para que voce possa aplicar uma determinada classe na sua pagina. e posso replicá-lo. 
+
+uma classe CSS é criada com ponto e o nome da classe:
+<style>
+#textoPrincipal
+{
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #444;
+    padding: 10px;
+}
+
+.negrito
+{
+    font-weight: bold;
+}
+
+.fundoVermelho 
+{
+    background-color: red;
+}
+
+</style>
+
+É a classe "fundoVermelho". quando coloco #, eu estou colocando estilo em um ID, no caso, id do primeiro span "textoPrincipal"; 
+
+O class é mais voltado para o estilo. O identificador tbm serve pra aplicar estilo, mas ele é mais um identificador unico em uma página; 
+
+Criando um atributo proprio exclusivo (wm-atrib):
+<span class="fundoVermelho" wm-atrib>Texto 3</span>
+
+Pra procurar no browser:
+document.querySelector('[wm-atrib]')
+
+Puxando um css externo:
+<link rel="stylesheet" href="poucoDeCss.css">
+
+Colocando um codigo css dentro do atributo/tag style: <span id="textoPrincipal" style="display: none;">Texto 1</span><br/><br/><br/>
+
+/////////////////
+
+Estruturando os exercícios -
+npm i -g http-server =====> instalar http-ser
+
+Em um arquivo index.html, criemos um HMTL:5.
+Dentro do body:
+<header> Exercicios HTML </header>
+<nav>
+    <a href="./codigos.html">00 - Teste</a>
+</nav>
+<section id="conteudo"></section>
+<footer>
+        Curso de Web
+</footer>
+
+agora no terminal digito: http-server -> ele vai startar na porta 8080. para definir uma porta para startar, usemos: http-server -p 9090 
+
+----> Quero que quando clique no link href, ele faça uma requisiçao ajax, pegue esse conteudo e jogue dentro da div/section em que coloquei o conteudo. 
+Façamos:
+
+<script>
+// A primeira coisa que temos que fazer é interceptar o click no link. no caso, document.querySelectorAll seleciona todas as tags. colocamos o nome da tag 'a'.
+document.querySelectorAll('a').forEach(link => {
+    link.onclick = function(e) { // 'e' é o evento que voce recebe do click.
+        e.preventDefault(); // vai prevenir que o comportamento padrão do navegador ocorra. ou seja, vai imprimir 'ação' no console, não vai direcionar pro codigos.html
+        console.log('ação!');
+    }
+})
+</script>
+
+Colocando 'fetch':
+
+<script>
+// A primeira coisa que temos que fazer é interceptar o click no link. no caso, document.querySelectorAll seleciona todas as tags. colocamos o nome da tag 'a'.
+
+document.querySelectorAll('a').forEach(link => {
+    link.onclick = function(e) { 
+        e.preventDefault(); 
+        const conteudo = document.getElementById('conteudo')
+        fetch(link.href); // peguei um link, fiz um fetch
+            .then(resp => resp.text()) // resp.text() serve para pegar o conteudo html da pagina que fiz requisiçao. depois dessa chamada é que tenho acesso ao valor textual do html que foi carregado nessa requisiçao.
+            .then(html => conteudo.innerHTML = html)   
+    }
+})
+</script>
+
+// /\ oq eu to fazendo é: para cada um dos links eu faço uma funçao que será disparada no onclick, vai prevenir o comportamento padrão (Que é navegar), obtive o conteudo a partir do document.getElementById, faço um fetch (uma requisiçao ajax) em cima do atributo href que me dá o link da página, uma vez que a promise foi resolvida ele chama o then que me da uma resposta.text, chamando uma funçao q vai chamar outra promise e vou ter minha disposiçao o html, que substitui o conteudo.innerHTML por html q resolvi. ai vou ver os conteudos sendo alterados. 
+
+É uma arquitetura boa e usual para colocar em páginas apenas aquilo que voce quer q mostre. 
+
+- Usando atributo exclusivo:
+No index.html, dentro do 'body'.:
+<header> Exercicios HTML </header>
+<nav>
+    <a href wm-nav="codigos.html">00 - Teste</a>
+</nav>
+<section id="conteudo"></section>
+<footer>
+    Curso de Web
+</footer>
+<script>
+    document.querySelectorAll('[wm-nav]').forEach(link => {
+    link.onclick = function(e) { 
+        e.preventDefault(); 
+        const conteudo = document.getElementById('conteudo')
+        fetch(link.getAttribute('wm-nav'))
+            .then(resp => resp.text()) 
+            .then(html => conteudo.innerHTML = html)   
+    }
+})
+</script>
+
+////////////////
+
+Tag para textos #01 -

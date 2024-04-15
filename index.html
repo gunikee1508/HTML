@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header> Exercicios HTML </header>
+    <nav>
+        <a href wm-nav="codigos.html">00 - Teste</a>
+    </nav>
+    <section id="conteudo"></section>
+    <footer>
+        Curso de Web
+    </footer>
+    <script>
+        document.querySelectorAll('[wm-nav]').forEach(link => {
+        link.onclick = function(e) { 
+            e.preventDefault(); 
+            const conteudo = document.getElementById('conteudo')
+            fetch(link.getAttribute('wm-nav'))
+                .then(resp => resp.text()) 
+                .then(html => conteudo.innerHTML = html)   
+        }
+    })
+    </script>
+</body>
+</html>
