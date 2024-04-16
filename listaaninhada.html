@@ -1,0 +1,63 @@
+<h1> Projeto </h1>
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css">
+
+<ul class="tree">
+    <li>
+        <span wm-folder>backend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>app</span>
+                <ul>
+                    <li>produto.js</li>
+                    <li>usuario.js</li>
+                    <li>venda.js</li>
+                </ul>
+            </li>
+            <li>
+                <span wm-folder>config</span>
+                <ul>
+                    <li>banco.js</li>
+                    <li>rotas.js</li>
+                    <li>servidor.js</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span wm-folder>frontend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>public</span>
+                <ul>
+                    <li>app.css</li>
+                    <li>app.js</li>
+                    <li>index.html</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<script>
+    document.querySelectorAll('[wm-folder]').forEach(folder => { // vou selecionar todos os elementos que estão marcados com a propriedade 'wm-folder' e quando eu clicar em um deles vou disparar uma funçao que vai abrir ou fechar os elementos abaixo
+        folder.onclick = function(e) {
+            // para debugar, eu poderia colocar aqui: debugger;
+            //console.log('teste');
+            const ul = folder.nextElementSibling
+            const d = ul.style.display
+            ul.style.display = d === 'none' ? 'block' : 'none'
+        }
+    }) 
+</script>
+
+<a id="#inicio" href="https://www.google.com.br">Google 1'</a>
+<a href="mailto:email@empresa.com.br"></a>
+
+<div id="noticia" style="position:absolute;top:2000px;">
+    <h1>Noticia bomba!</h1>
+    <p>Não era nada...</p>
+    <a href="#inicio">Voltar Início</a>
+</div>
+
+<a href="#noticia">Ir para Notícia</a>

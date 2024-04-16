@@ -1,0 +1,94 @@
+<p> 
+    Lorem ipsum Teste 
+    Lorem
+</p>
+
+<p> Negrito em <b>Negrito</b> e <i>itálico</i></p>
+
+<p> 2<sup>2</sup> e H<sub>2</sub>O </p> 
+
+<p> Espaço <span style="padding: 5px;"> </span> em branco </p>
+
+<hr>
+
+<h2>Aprovados</h2>
+<ol>
+    <li>Bia</li>
+    <li>Pedro</li>
+    <li>João</li>
+    <li>Ana</li>
+</ol>
+
+<h2>Lista de compras</h2>
+<ul>
+    <li>Queijo</li>
+    <li>Leite</li>
+    <li>Arroz</li>
+        <ul>
+            <li>dfsjjhsdf</li>
+        </ul>
+    <li>Feijão</li>
+</ul>
+
+<!-- Lista de definições -->
+
+<dl>
+    <dt> BaaS</dt>
+    <dd>Backend como serviço </dd>
+    <dt>IaaS</dt>
+    <dd>Infraestrutura como serviço</dd>
+    <dt>PaaS</dt>
+    <dd>Plataforma como serviço</dd>
+    <dt>SaaS</dt>
+    <dd>Software como serviço</dd>
+</dl>
+
+<!-- Lista aninhada -->
+<h1> Projeto </h1>
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css">
+
+<ul class="tree">
+    <li>
+        <span wm-folder>backend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>app</span>
+                <ul>
+                    <li>produto.js</li>
+                    <li>usuario.js</li>
+                    <li>venda.js</li>
+                </ul>
+            </li>
+            <li>
+                <span wm-folder>config</span>
+                <ul>
+                    <li>banco.js</li>
+                    <li>rotas.js</li>
+                    <li>servidor.js</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span wm-folder>frontend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>public</span>
+                <ul>
+                    <li>app.css</li>
+                    <li>app.js</li>
+                    <li>index.html</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<script>
+    document.querySelectorAll(['wm-folder']).forEach(folder => { // vou selecionar todos os elementos que estão marcados com a propriedade 'wm-folder' e quando eu clicar em um deles vou disparar uma funçao que vai abrir ou fechar os elementos abaixo
+        folder.onclick = function(e) {
+            console.log('teste');
+        }
+    }) 
+</script>

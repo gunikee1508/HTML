@@ -160,3 +160,212 @@ No index.html, dentro do 'body'.:
 ////////////////
 
 Tag para textos #01 -
+
+Para criar um estilo em cima de um id, coloquemos #NOMEDOID
+<style>
+
+    #conteudo {
+        padding: 30px 0px;
+    }
+
+</style>
+
+// Para habilitar o http-server desabilitando o cache:
+http-server -c-1 . // o '.' no final significa que é diretorio atual, ou seja, o servidor ira servir os arquivos no diretorio atual onde a linha de comando foi executada.
+
+Cabeçalhos:
+<h1></h1> até <h6></h6>
+
+- Parágrafos:
+<p> 
+    Lorem ipsum Teste 
+    Lorem
+</p>
+// as quebras de linhas não serão interpretadas, pra ter quebras de linhas so usando tags. 
+
+- Negrito e itálico:
+<p> Negrito em <b>Negrito</b> e <i>itálico</i></p>
+
+- Sobrescrito e subscrito 
+<p> 2<sup>2</sup> e H<sub>2</sub>O </p> - sup vai pra cima, Sobrescrito e 'sub' vai pra baixo, subscrito.
+
+- Espaço em branco 
+<p> Espaço <span style="padding: 5px;"> </span> em branco </p>
+
+////////////
+
+Tag para textos #02 -
+<-- Quebra de linha e quebra temática -->
+<p> Isso está <br> em uma <br/> nova linha. </p>
+<p> Tema interessante 1 </p>
+<hr/>
+
+Se você tem várias seçoes e quer colocar um HR, ele vai quebrar como se tivesse indo pra outra seção. 
+
+<-- Marcações semânticas -->
+Aqui é pq no caso, vc tá dando semantica a um determinado texto, e não estilo.
+<p><strong>Cuidado!</strong> Alta voltagem! <em>Somente pessoas autorizadas</em<p>
+
+/////////////
+
+Listas - 
+<h1> Listas </h1>
+
+<!-- Lista Ordenada -->
+<h2>Aprovados</h2>
+<ol>
+    <li>Bia</li>
+    <li>Pedro</li>
+    <li>João</li>
+    <li>Ana</li>
+</ol>
+
+<!-- Lista não ordenada -->
+<h2>Lista de compras</h2>
+<ul>
+    <li>Queijo</li>
+    <li>Leite</li>
+    <li>Arroz</li>
+    <li>Feijão</li>
+</ul>
+
+<!-- Lista de definições -->
+
+<dl>
+    <dt> BaaS</dt>
+    <dd>Backend como serviço </dd>
+    <dt>IaaS</dt>
+    <dd>Infraestrutura como serviço</dd>
+    <dt>PaaS</dt>
+    <dd>Plataforma como serviço</dd>
+    <dt>SaaS</dt>
+    <dd>Software como serviço</dd>
+</dl>
+
+é como um glossario, <Dt> é o termo que vc quer definir e a propria definição em si q seria o <dd>
+
+/////////////////
+
+Listas Aninhadas -
+<!-- Lista aninhada -->
+<h1> Projeto </h1>
+<ul class="tree">
+    <li>
+        backend
+        <ul>
+            <li>
+                app
+                <ul>
+                    <li>produto.js</li>
+                    <li>usuario.js</li>
+                    <li>venda.js</li>
+                </ul>
+            </li>
+            <li>
+                config
+                <ul>
+                    <li>banco.js</li>
+                    <li>rotas.js</li>
+                    <li>servidor.js</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        frontend
+        <ul>
+            <li>
+                public
+                <ul>
+                    <li>app.css</li>
+                    <li>app.js</li>
+                    <li>index.html</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css"> <!-- usamos esse estilo css para que possamos ter uma visualizaçao em css em formato arvore -->
+
+///////////
+
+Criando formato para clicar e expandir ou não -
+<h1> Projeto </h1>
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css">
+
+<ul class="tree">
+    <li>
+        <span wm-folder>backend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>app</span>
+                <ul>
+                    <li>produto.js</li>
+                    <li>usuario.js</li>
+                    <li>venda.js</li>
+                </ul>
+            </li>
+            <li>
+                <span wm-folder>config</span>
+                <ul>
+                    <li>banco.js</li>
+                    <li>rotas.js</li>
+                    <li>servidor.js</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span wm-folder>frontend</span>
+        <ul class="open">
+            <li>
+                <span wm-folder>public</span>
+                <ul>
+                    <li>app.css</li>
+                    <li>app.js</li>
+                    <li>index.html</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<script>
+    document.querySelectorAll('[wm-folder]').forEach(folder => { // vou selecionar todos os elementos que estão marcados com a propriedade 'wm-folder' e quando eu clicar em um deles vou disparar uma funçao que vai abrir ou fechar os elementos abaixo
+        folder.onclick = function(e) {
+            // para debugar, eu poderia colocar aqui: debugger;
+            //console.log('teste');
+            const ul = folder.nextElementSibling
+            const d = ul.style.display
+            ul.style.display = d === 'none' ? 'block' : 'none'
+        }
+    }) 
+</script>
+
+//////////////////////////
+
+Links #01 -
+<!-- URL Absoluta -->
+<a href="http://www.google.com.br">Google 1</a><br/>
+<a href="http://www.google.com.br" target="_blank">Google 1</a><br/> <!-- isso quer dizer que vai ser aberta em uma nova aba -->
+
+<!-- URL Relativa -->
+<a href="index.html">Voltar 1</a><br>
+<a href="/index.html">Voltar 2</a><br/>
+<a href="../index.html">Voltar 3</a><br/>
+
+///////////////////
+
+Links #02 - 
+Passando e-mail direto:
+<a href="mailto:email@empresa.com.br"></a>
+
+<div id="noticia" style="position:absolute;top:2000px;">
+    <h1>Noticia bomba!</h1>
+    <p>Não era nada...</p>
+    <a href="#inicio">Voltar Início</a>
+</div>
+
+<a href="#noticia">Ir para Notícia</a>
