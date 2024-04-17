@@ -61,3 +61,67 @@
 </div>
 
 <a href="#noticia">Ir para Notícia</a>
+
+<table border="1"> <!-- table border="1" ele teria uma borda. -->
+    <caption>Produtos</caption>
+    <thead> <!-- define a área que vc vai colocar o cabeçalho na sua tabela -->
+        <tr> <!-- table row-->
+            <th>Produtos</th> <!-- table head, se minha tabela tiver 4 colunas, para cada coluna eu vou ter um cabeçalho thead para cada uma delas e uma unica linha de cabeçalho -->
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody> <!-- corpo da minha tabela que de fato vai ter os dados. os dados são organizados em linhas e colunas. 1 linha em uma tabela é um <TR> q é table row e <td> é a celula-->
+        <tr>
+            <td>iPad</td>
+            <td>3289,00</td>
+            <td>5</td>
+            <td>16445,00</td>
+        </tr>
+        <tr>
+            <td>Samsung S9</td>
+            <td>2649,00</td>
+            <td>8</td>
+            <td>21192,00</td>
+        </tr>
+    </tbody>
+    <tfoot> <!-- rodapé da minha página -->
+        <tr>
+            <td colspan="3"> <!-- colspan é uma propriedade que diz quantas colunas ele vai ocupar. rowspan é que ele vai ocupar 2 linhas., ai eu teria que ter outro <tr></tr> -->
+                Total
+            </td>
+            <td>37637,00</td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- border-collapse: collapse; significa que não vai ter borda -->
+<!-- Padding faz com que dentro do elemento crie espaçamento -->
+<!-- thead tr é para aplicar estilos em <tr> que esteja dentro de <thead> -->
+<!-- tbody tr:hover é para quando o clique do mouse passar em cima do <tr> que estiver dentro do <tbody> vai aplicar o estilo css -->
+
+<style>
+    table {
+        border-collapse: collapse; 
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    thead tr {
+        border-bottom: solid 3px #444;
+    }
+
+    tbody tr:hover {
+        background-color: #dedede;
+    }
+
+    tfoot  {
+        background-color: #444;
+        color: #fff;
+        font-weight: bold;
+    }
+
+</style>

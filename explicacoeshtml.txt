@@ -44,7 +44,7 @@ Dentro do body coloquemos uma tag chamada "<span>" qeu tbm é uma tag visual.
 <span class="fundoVermelho negrito">Texto 2</span> <!-- aqui tenho 2 classes css, fundoVermelho e negrito -->
 <span class="fundoVermelho">Texto 3</span>
 
-Com span style="", dentro vc coloca o codigo CSS, o chave valor de CSS. praticamente todas as tags do html terá "id", q será o identificador da tag. O id deve ser unico na pagina inteira. No span debaixo, coloquei "class", que é outro identificador muito associado com uso de estilo para que voce possa aplicar uma determinada classe na sua pagina. e posso replicá-lo. 
+Com span style="", dentro vc coloca o codigo CSS, o chave valor de CSS. praticamente todas as tags do html terá "id", q será o identificador da tag. O id deve ser unico na pagina inteira. No span de baixo, coloquei "class", que é outro identificador muito associado com uso de estilo para que voce possa aplicar uma determinada classe na sua pagina. e posso replicá-lo. 
 
 uma classe CSS é criada com ponto e o nome da classe:
 <style>
@@ -163,11 +163,9 @@ Tag para textos #01 -
 
 Para criar um estilo em cima de um id, coloquemos #NOMEDOID
 <style>
-
     #conteudo {
         padding: 30px 0px;
     }
-
 </style>
 
 // Para habilitar o http-server desabilitando o cache:
@@ -369,3 +367,331 @@ Passando e-mail direto:
 </div>
 
 <a href="#noticia">Ir para Notícia</a>
+
+///////////////////
+
+Tabelas -
+Dentro da tabela temos cabeçalho, corpo e rodapé; como uma página.
+<table border="1"> <!-- table border="1" ele teria uma borda. -->
+    <caption>Produtos</caption>
+    <thead> <!-- define a área que vc vai colocar o cabeçalho na sua tabela -->
+        <tr> <!-- table row-->
+            <th>Produtos</th> <!-- table head, se minha tabela tiver 4 colunas, para cada coluna eu vou ter um cabeçalho thead para cada uma delas e uma unica linha de cabeçalho -->
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody> <!-- corpo da minha tabela que de fato vai ter os dados. os dados são organizados em linhas e colunas. 1 linha em uma tabela é um <TR> q é table row e <td> é a celula-->
+        <tr>
+            <td>iPad</td>
+            <td>3289,00</td>
+            <td>5</td>
+            <td>16445,00</td>
+        </tr>
+        <tr>
+            <td>Samsung S9</td>
+            <td>2649,00</td>
+            <td>8</td>
+            <td>21192,00</td>
+        </tr>
+    </tbody>
+    <tfoot> <!-- rodapé da minha página -->
+        <tr>
+            <td colspan="3"> <!-- colspan é uma propriedade que diz quantas colunas ele vai ocupar. rowspan é que ele vai ocupar 2 linhas., ai eu teria que ter outro <tr></tr> -->
+                Total
+            </td>
+            <td>37637,00</td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- border-collapse: collapse; significa que não vai ter borda -->
+<!-- Padding faz com que dentro do elemento crie espaçamento -->
+<!-- thead tr é para aplicar estilos em <tr> que esteja dentro de <thead> -->
+<!-- tbody tr:hover é para quando o clique do mouse passar em cima do <tr> que estiver dentro do <tbody> vai aplicar o estilo css -->
+
+<style>
+    table {
+        border-collapse: collapse; 
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    thead tr {
+        border-bottom: solid 3px #444;
+    }
+
+    tbody tr:hover {
+        background-color: #dedede;
+    }
+
+    tfoot  {
+        background-color: #444;
+        color: #fff;
+        font-weight: bold;
+    }
+
+</style>
+
+///////////////////////
+
+Formulários #01 - 
+Agora veremos os tipos radio, box, etc, input etc. 
+
+Já vamos criar o nosso arquivo, no terminal do vs code: npm init -y para criar o arquivo 'package.json'
+depois damos npm i --save express@4.16.3 body-parser@1.18.2 -E, com isso, dentro da pasta 'form', agora tenho o package.json com 2 dependencias dentro dela, o express e o body-parser.  e cria a pasta 'node_modules' com as dependencias instaladas.
+
+Dentro de 'form.html':
+
+<H1> Formulário </H1>
+<form action="http://localhost:3003/usuarios" method="POST">
+    <input type="text" name="nome">
+    <button>Incluir</button>
+</form>
+
+Agora, vamos no meu back-end 'server.js' p configurar e receber a requisiçao no tipo post:
+
+Server.js:
+
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser'); // o body-parser vai fazer um parser no corpo da requisiçao/request, pegar esses dados e jogar dentro do request.body, ent qd acessar request.body vou ter acesso a todos os dados que submeti
+
+app.use(bodyParser.urlencoded({extended: true})) // se nao tiver, nao vai fazer um parse no body, não le o corpo da requisiçao e nao transforma os dados para serem interpretados
+
+// agora vou ter que atender às URLs
+app.post('/usuarios', (req, resp) => { // fazer requisiçao 'post' em cima da url '/usuarios', ja que la no formulario to acessando /usuarios. 'req' e 'resp' é uma funçao middleware que é requisiçao e resposta [no caso não usaremos next()]
+    console.log(req.body) // request.body para saber o que de fato chegou no corpo da requisição, imprimindo no servidor.
+    resp.send('<h1>Parabéns</h1>') // mandando como resposta a string 'parabens, vai renderizar no browser
+})
+
+app.listen(3003); // a porta que coloquei para ouvir no formulario
+
+No terminal dou 'cd form', depois dou 'node server.js'
+
+/////////////
+
+Formulario #02 -
+No form.html:
+<H1> Formulário </H1>
+<form action="http://localhost:3003/usuarios" method="POST">
+    <input type="text" name="nome">
+    <input type="password" name="senha">
+    <textarea name="bio" cols="30" rows="10"></textarea>
+    <div>
+        <!-- tenho q colocar 'value' para que de fato quando clicar oq for enviado pro backend é oq ta dentro de value. -->
+        <input type="radio" name="tipo" value="admin"> Admin
+        <input type="radio" name="tipo" value="regular"> Regular
+        <input type="radio" name="tipo" value="professor"> Professor
+    </div>
+    <div>
+        <input type="checkbox" name="ativo"> Ativo
+    </div>
+
+    <select name="estado">
+        <option value=""></option>
+        <option value="ac">Acre</option>
+        <option value="ba">Bahia</option>
+        <option value="ce">Ceará</option>
+    </select>
+
+    <select name="interesses" multiple size="5">
+        <option value="js">JavaScript</option>
+        <option value="java">JAVA</option>
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="go">Go</option>
+        <option value="c">C</option>
+    </select>
+
+    <button>Incluir</button>
+</form>
+
+<!-- margin-bottom para dar espaçamento dos campos -->
+<!-- fiz input[type=radio] display inline para que não fique um embaixo do outro bem feio. -->
+<style>
+    input, 
+    textarea,
+    select {
+        display: block;
+        margin-bottom: 10px; 
+    }
+
+    input[type=radio],
+    input[type=checkbox] {
+        display: inline;
+    }
+</style>
+
+No Server.js:
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser'); // o body-parser vai fazer um parser no corpo da requisiçao/request, pegar esses dados e jogar dentro do request.body, ent qd acessar request.body vou ter acesso a todos os dados que submeti
+
+app.use(bodyParser.urlencoded({extended: true})) // se nao tiver, nao vai fazer um parse no body, não le o corpo da requisiçao e nao transforma os dados para serem interpretados
+
+// agora vou ter que atender às URLs
+app.post('/usuarios', (req, resp) => { // fazer requisiçao 'post' em cima da url '/usuarios', ja que la no formulario to acessando /usuarios. 'req' e 'resp' é uma funçao middleware que é requisiçao e resposta [no caso não usaremos next()]
+    console.log(req.body) // request.body para saber o que de fato chegou no corpo da requisição, imprimindo no servidor.
+    resp.send('<h1>Parabéns</h1>') // mandando como resposta a string 'parabens, vai renderizar no browser
+})
+
+app.listen(3003); // a porta que coloquei para ouvir no formulario
+
+-> Um terminal com http-server ligado e o outro digitado 'node server.js'
+
+/////////////////////
+
+Formulario #03
+
+Alteramos o button para "button formaction="http://localhost:3003/usuarios/3".
+
+No servidor, vemos o "app.post('/usuarios')"..., criaremos outro so q agora apontando para usuarios/:id para alterar de fato, q é o que queremos, colocamos ':id' e não '3', pois 'id' é um parametro. 
+
+Instalo nodemon dependencia de dev: npm i --save-dev nodemon
+depois, vamos startar: 
+nodemon server.js
+
+No form.html:
+<H1> Formulário </H1>
+<form method="POST">
+    
+    <input type="hidden" name="id" value="3">
+    <input type="text" name="nome">
+    <input type="password" name="senha">
+    <textarea name="bio" cols="30" rows="10"></textarea>
+    <div>
+        <!-- tenho q colocar 'value' para que de fato quando clicar oq for enviado pro backend é oq ta dentro de value. -->
+        <input type="radio" name="tipo" value="admin"> Admin
+        <input type="radio" name="tipo" value="regular"> Regular
+        <input type="radio" name="tipo" value="professor"> Professor
+    </div>
+
+    <div>
+        <input type="checkbox" name="ativo"> Ativo
+    </div>
+
+    <select name="estado">
+        <option value=""></option>
+        <option value="ac">Acre</option>
+        <option value="ba">Bahia</option>
+        <option value="ce">Ceará</option>
+    </select>
+
+    <select name="interesses" multiple size="5">
+        <option value="js">JavaScript</option>
+        <option value="java">JAVA</option>
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="go">Go</option>
+        <option value="c">C</option>
+    </select>
+
+    <button formaction="http://localhost:3003/usuarios">Incluir</button>
+    <button formaction="http://localhost:3003/usuarios/3">Alterar</button>    
+</form>
+
+<!-- margin-bottom para dar espaçamento dos campos -->
+<!-- fiz input[type=radio] display inline para que não fique um embaixo do outro bem feio. -->
+<style>
+    input, 
+    textarea,
+    select {
+        display: block;
+        margin-bottom: 10px; 
+    }
+
+    input[type=radio],
+    input[type=checkbox] {
+        display: inline;
+    }
+</style>
+
+No server.js:
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser'); // o body-parser vai fazer um parser no corpo da requisiçao/request, pegar esses dados e jogar dentro do request.body, ent qd acessar request.body vou ter acesso a todos os dados que submeti
+
+app.use(bodyParser.urlencoded({extended: true})) // se nao tiver, nao vai fazer um parse no body, não le o corpo da requisiçao e nao transforma os dados para serem interpretados
+
+// agora vou ter que atender às URLs
+app.post('/usuarios', (req, resp) => { // fazer requisiçao 'post' em cima da url '/usuarios', ja que la no formulario to acessando /usuarios. 'req' e 'resp' é uma funçao middleware que é requisiçao e resposta [no caso não usaremos next()]
+    console.log(req.body) // request.body para saber o que de fato chegou no corpo da requisição, imprimindo no servidor.
+    console.log(req.query); // aqui são as querys que foram de fato usadas no formulário
+    resp.send('<h1>Parabéns. Usuário Incluído.</h1>') // mandando como resposta a string 'parabens, vai renderizar no browser
+})
+
+app.post('/usuarios/:id', (req, resp) => {
+    console.log(req.params.id); // quero que mostre o id do parametro tbm
+    console.log(req.body) 
+    resp.send('<h1>Parabéns. Usuário alterado. </h1>')
+})
+
+app.listen(3003); // a porta que coloquei para ouvir no formulario
+
+Se fosse "app.get" seria metodo get e ai os parametros seriam passados via URL.
+
+///////////////////
+
+Imagens -
+
+<!-- tem-se a propriedade "alt" de alternativa, do img, que é exibida em uns momentos principalmente qd nao é exibida; width representa largura e height altura. -->
+<p>
+    <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg" alt="Muro da Cidade" width="513" height="342" title="Muro da cidade por Tarso Bessa">
+</p>
+
+<p>
+    <img src="http://files.cod3r.com.br/curso-web/imagem2.gif" alt="Intro Cod3r" height="342">
+</p>
+
+<p class="circular">
+    <img src="http://files.cod3r.com.br/curso-web/imagem3.png" alt="Rio de Janeiro" height="342">
+</p>
+
+<p class="texto">
+    <img src="http://files.cod3r.com.br/curso-web/avatar.jpg" alt="Avatar" height="50" align="left">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+</p>
+
+<p class="cidade">
+    <p>
+        <!-- nessa tag vc tem a possibilidade de colocar várias fontes/imagens e em cima dessas imgs vc pode colocar criterios para que ela seja exibida ou não -->
+        <picture>
+            <!-- a imagem sera exibida se o minimo de largura for de 600px -->
+            <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png" media="(min-width: 600px)">
+            <!-- caso não tenha minimo de largura de 600px, vai para o outro img src, exibirá a imagem de baixo. se a imagem não existir, ele não irá para o proximo, dá erro apenas  -->
+            <img src="http://files.cod3r.com.br/curso-web/logo-estreita.png" alt="logo">
+        </picture>
+    </p>
+</p>
+
+<style>
+    .circular {
+        width: 513px;
+        background-color: #444;
+    }
+
+    .texto {
+        width: 400px;
+    }
+
+    .texto img {
+        margin-right: 10px;
+    }
+
+    .cidade {
+        width: 513px;
+        height: 342px;
+        background-image: url('http://files.cod3r.com.br/curso-web/imagem4.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 200%;
+    }
+</style>
+
+//////////////
+
+Desafio Slider #01 - 
