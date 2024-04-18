@@ -1,0 +1,40 @@
+<!-- Tags semânticas:
+section - agrupamento temático de conteúdo
+article - conteúdo auto-contido
+header - cabeçalho do documento
+footer - rodapé do documento
+nav - agrupa os links de navegação
+aside - de lado (ex.: sidebar); Relacionado com conteudo em volta (Adendo)
+details exibe detalhes que podem ser exibidos ou escondidos
+
+div - divisão ou seção; por padrão tem display:Block, isto é, ocupa somente uma linha, fica em uma linha
+span - usado para agrupar elementos inline
+
+-->
+
+<div>Área 1</div>
+<div>Área 2</div>
+
+<p>
+    Este é um texto com <span class="diferente">muitas palavras</span> e ponto. 
+</p>
+
+<!-- ja que tenho span, e posso colocar classe para aplicar estilo, posso agora criar um estilo -->
+
+<!-- p,div como display inline vai manter tudo numa linha so, o p e o div. -->
+<!-- span como display block vai quebrar eles em linhas diferentes -->
+<style>
+    p, div { 
+        display: inline;
+    }
+
+    span {
+        display: block;
+    }
+
+    .diferente {
+        font-weight: bold;
+        font-size: 30px;
+        color: chocolate;
+    }
+</style>
